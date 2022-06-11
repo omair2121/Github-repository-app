@@ -15,13 +15,14 @@
             android:id="@+id/card"
             app:cardElevation="0dp"
             app:cardUseCompatPadding="false"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="22dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
+                android:scaleType="fitXY"
                 android:id="@+id/rounded_iv"
                 android:src="@mipmap/ic_launcher"
                 android:layout_width="100dp"
