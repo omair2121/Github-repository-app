@@ -13,6 +13,9 @@ import com.crazy.coder.data.repos.GitRepositoriesRepo
 import com.crazy.coder.databinding.ActivityHomeBinding
 import com.crazy.coder.domain.GetRepositoriesUseCase
 import com.crazy.coder.libs.Utils.isConnected
+import android.app.SearchManager
+import android.content.Context
+import android.view.MenuItem
 
 
 class HomeActivity : AppCompatActivity() {
@@ -27,17 +30,12 @@ class HomeActivity : AppCompatActivity() {
         observers()
         listener()
     }
+
     private fun init(isSavedInstanceStateNull: Boolean) {
         if (isSavedInstanceStateNull && isConnected(this))
             initData()
          else
             stateText(0)
-    }
-
-    private fun listener() {
-        mBinding?.stateTv?.setOnClickListener {
-            init(true)
-        }
     }
 
     private fun initData() {
@@ -61,6 +59,18 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    private fun listener() {
+        mBinding?.stateTv?.setOnClickListener {
+            if(viewModel.isOriginalListAvailable()) {
+                viewModel.reset()
+                mSearchMenu?.collapseActionView()
+            } else
+                init(true)
+
+            mBinding?.stateTv?.isVisible = false
+        }
+    }
+
     private fun stateText(size: Int) {
         mBinding?.stateTv?.isVisible = size == 0
         loader(false)
@@ -76,46 +86,27 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    private var mSearchMenu: MenuItem? = null
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(com.crazy.coder.R.menu.home_menu, menu)
+        menuInflater.inflate(R.menu.home_menu, menu)
 
-        val myActionMenuItem = menu!!.findItem(com.crazy.coder.R.id.action_search)
-        val searchView = myActionMenuItem.actionView as SearchView
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        mSearchMenu = menu?.findItem(R.id.action_search)
+        val searchView = mSearchMenu?.actionView as? SearchView
+        searchView?.maxWidth = Integer.MAX_VALUE
+
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                // Toast like print
-//                UserFeedback.show("SearchOnQueryTextSubmit: $query")
-                if (!searchView.isIconified()) {
-                    searchView.setIconified(true)
-                }
-                myActionMenuItem.collapseActionView()
+//                if(query.isNotBlank())
+                    viewModel.search(query)
+//                else viewModel.reset()
                 return false
             }
 
             override fun onQueryTextChange(s: String): Boolean {
-                // UserFeedback.show( "SearchOnQueryTextChanged: " + s);
-
+                s.ifEmpty { viewModel.reset() }
                 return false
             }
         })
-
         return true
-
-
-//        menuInflater.inflate(R.menu.home_menu, menu)
-//
-//        val searchItem: MenuItem? = menu?.findItem(R.id.action_search)
-//        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-//        val searchView: SearchView = searchItem?.actionView as SearchView
-//
-//        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-//        return super.onCreateOptionsMenu(menu)
     }
-
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return if(item.itemId == R.id.action_search){
-//
-//        } else
-//        super.onOptionsItemSelected(item)
-//    }
 }

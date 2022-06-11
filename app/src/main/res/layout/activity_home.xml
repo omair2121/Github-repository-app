@@ -22,6 +22,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:elevation="3dp"
             android:padding="20dp"
             android:textSize="14dp"
             android:text = "No data available. tap to retry"
