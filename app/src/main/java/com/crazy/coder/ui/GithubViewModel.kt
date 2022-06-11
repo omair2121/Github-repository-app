@@ -10,30 +10,25 @@ import com.crazy.coder.domain.ViewSelection
 import java.util.ArrayList
 import kotlinx.coroutines.launch
 
-class GithubViewModel(private val useCase: GetRepositoriesUseCase): ViewModel(), ViewSelection {
-    private var _repoList = MutableLiveData<MutableList<RepositoriesModelItem>>()
-    val repoList: LiveData<MutableList<RepositoriesModelItem>>
+class GithubViewModel(private val useCase: GetRepositoriesUseCase) : ViewModel(), ViewSelection {
+    private var _repoList = MutableLiveData<MutableList<RepositoriesModelItem>?>()
+    val repoList: LiveData<MutableList<RepositoriesModelItem>?>
         get() = _repoList
 
     fun getRepositories() {
         viewModelScope.launch {
-            val result = useCase()
-            if(result.isNotEmpty())
-                _repoList.value = result
+            _repoList.value =
+                try {
+                    val result = useCase()
+                    result.ifEmpty { mutableListOf() }
+                } catch (e: Exception) {
+                    mutableListOf()
+                }
         }
     }
 
-    override fun onViewSelect(clickedItem: RepositoriesModelItem) {
-//        _repoList.value?.find {
-//            if(it.rank == clickedItem.rank) {
-//                it.isSelected = clickedItem.isSelected
-//                true
-//            }else false
-//        }
-//        _repoList.notify()
+    // can be used for future operation on the list
+    override fun onViewSelect(item: RepositoriesModelItem) {
+
     }
-//
-//   private fun <T> MutableLiveData<T>.notify() {
-//        this.value = (this.value)
-//    }
 }

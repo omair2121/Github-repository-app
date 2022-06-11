@@ -1,12 +1,8 @@
 package com.crazy.coder.ui
 
 import com.crazy.coder.R
-import android.R.menu
-import android.app.SearchManager
-import android.content.Context
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -16,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.crazy.coder.data.repos.GitRepositoriesRepo
 import com.crazy.coder.databinding.ActivityHomeBinding
 import com.crazy.coder.domain.GetRepositoriesUseCase
+import com.crazy.coder.libs.Utils.isConnected
 
 
 class HomeActivity : AppCompatActivity() {
@@ -25,11 +22,22 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_home)
         setContentView(mBinding?.root)
-        if (savedInstanceState == null) {
-            initData()
-        }
+        init(savedInstanceState == null)
         initRV()
         observers()
+        listener()
+    }
+    private fun init(isSavedInstanceStateNull: Boolean) {
+        if (isSavedInstanceStateNull && isConnected(this))
+            initData()
+         else
+            stateText(0)
+    }
+
+    private fun listener() {
+        mBinding?.stateTv?.setOnClickListener {
+            init(true)
+        }
     }
 
     private fun initData() {
@@ -48,8 +56,14 @@ class HomeActivity : AppCompatActivity() {
     private fun observers() {
         viewModel.repoList.observe(this) {
             loader(false)
+            stateText(it?.size ?: 0)
             mAdapter.submitList(it)
         }
+    }
+
+    private fun stateText(size: Int) {
+        mBinding?.stateTv?.isVisible = size == 0
+        loader(false)
     }
 
     private lateinit var mAdapter: HomeAdapter

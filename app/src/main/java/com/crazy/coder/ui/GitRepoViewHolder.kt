@@ -1,12 +1,10 @@
 package com.crazy.coder.ui
 
-import android.content.ContextWrapper
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.crazy.coder.R
 import com.crazy.coder.data.models.RepositoriesModelItem
 import com.crazy.coder.databinding.ItemGitRepoBinding
