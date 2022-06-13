@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Github Repositories</string>
+    <string name="search">Search</string>
+    <string name="no_data_available_tap_to_retry">No data available. tap to retry</string>
 </resources>

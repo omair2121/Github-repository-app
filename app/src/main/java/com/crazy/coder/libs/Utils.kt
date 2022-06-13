@@ -8,7 +8,7 @@ import android.net.NetworkInfo
 import android.os.Build
 import androidx.core.content.ContextCompat.getSystemService
 
-
+// checking if connected with internet, copy pasted from stackoverflow.
 object Utils {
     fun isConnected(context: Context): Boolean {
         var result = false

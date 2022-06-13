@@ -5,15 +5,15 @@
       <config />
     </shared>
   </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bd49747c-72c9-418c-954c-14ddc2d741bc" name="Changes" comment="gitignore">
+    <list default="true" id="bd49747c-72c9-418c-954c-14ddc2d741bc" name="Changes" comment="project name corrected from settings">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/crazy/coder/ui/GithubViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/crazy/coder/ui/GithubViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/crazy/coder/ui/HomeActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/crazy/coder/ui/HomeActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/home_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/home_menu.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

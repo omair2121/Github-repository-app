@@ -3,6 +3,7 @@ package com.crazy.coder.libs.network
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+// creating retrofit instance,
 object RetrofitInstance {
     private lateinit var instance: Retrofit
     private const val url = "https://gh-trending-api.herokuapp.com"

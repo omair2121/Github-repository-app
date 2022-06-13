@@ -1,6 +1,6 @@
 package com.crazy.coder.data.models
 
-data class RepositoriesModelItem(
+data class Repositories(
     val description: String,
     val forks: Int,
     val language: String,

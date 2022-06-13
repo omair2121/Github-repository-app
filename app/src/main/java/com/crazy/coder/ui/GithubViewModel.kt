@@ -4,18 +4,21 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.crazy.coder.data.models.RepositoriesModelItem
+import com.crazy.coder.data.models.Repositories
 import com.crazy.coder.domain.GetRepositoriesUseCase
 import com.crazy.coder.domain.ViewSelection
 import kotlinx.coroutines.launch
 
 class GithubViewModel(private val useCase: GetRepositoriesUseCase) : ViewModel(), ViewSelection {
-    private var _repoList = MutableLiveData<MutableList<RepositoriesModelItem>?>()
-    val repoList: LiveData<MutableList<RepositoriesModelItem>?>
+    // backing field for showing in recyclerver
+    private var _repoList = MutableLiveData<MutableList<Repositories>?>()
+    val repoList: LiveData<MutableList<Repositories>?>
         get() = _repoList
 
-    private val _repoOriginalList = MutableLiveData<MutableList<RepositoriesModelItem>?>()
+    // duplicate list for reference in search functionality
+    private val _repoOriginalList = MutableLiveData<MutableList<Repositories>?>()
 
+    // fetching repo list data from network
     fun getRepositories() {
         viewModelScope.launch {
             _repoList.value =
@@ -30,7 +33,7 @@ class GithubViewModel(private val useCase: GetRepositoriesUseCase) : ViewModel()
     }
 
     // can be used for future operation on the list
-    override fun onViewSelect(item: RepositoriesModelItem) {
+    override fun onViewSelect(item: Repositories) {
 
     }
 
@@ -42,10 +45,12 @@ class GithubViewModel(private val useCase: GetRepositoriesUseCase) : ViewModel()
         }
     }
 
+    // when we already have repo list available , then just add it to the duplicate list , used in search reset also
     fun reset() {
         _repoList.value = _repoOriginalList.value
     }
 
+    // checking if we already made a network call,
     fun isOriginalListAvailable() = _repoOriginalList.value?.isNotEmpty() == true
 
 }

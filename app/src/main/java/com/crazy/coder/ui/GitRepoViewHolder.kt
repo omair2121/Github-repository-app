@@ -6,7 +6,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.crazy.coder.R
-import com.crazy.coder.data.models.RepositoriesModelItem
+import com.crazy.coder.data.models.Repositories
 import com.crazy.coder.databinding.ItemGitRepoBinding
 import com.crazy.coder.domain.ViewSelection
 
@@ -28,7 +28,7 @@ class GitRepoViewHolder(
         }
     }
 
-    fun bind(item: RepositoriesModelItem) {
+    fun bind(item: Repositories) {
         binding.apply {
 //            roundedIv.setImageResource()
 //            roundedIv.load(item.url) // url is not image

@@ -20,6 +20,7 @@ import android.view.MenuItem
 
 class HomeActivity : AppCompatActivity() {
 
+    // using data binding
     private var mBinding: ActivityHomeBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +32,7 @@ class HomeActivity : AppCompatActivity() {
         listener()
     }
 
+    // checking if device is connected to internet and first instance else showing related text
     private fun init(isSavedInstanceStateNull: Boolean) {
         if (isSavedInstanceStateNull && isConnected(this))
             initData()
@@ -96,9 +98,7 @@ class HomeActivity : AppCompatActivity() {
 
         searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-//                if(query.isNotBlank())
                     viewModel.search(query)
-//                else viewModel.reset()
                 return false
             }
 

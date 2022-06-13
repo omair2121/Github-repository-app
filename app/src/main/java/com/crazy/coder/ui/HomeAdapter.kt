@@ -4,13 +4,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
-import com.crazy.coder.data.models.RepositoriesModelItem
+import com.crazy.coder.data.models.Repositories
 import com.crazy.coder.domain.ViewSelection
 
 class HomeAdapter(private val viewSelection: ViewSelection) :
 //    RecyclerView.Adapter<GitRepoViewHolder>() {
-    ListAdapter<RepositoriesModelItem, GitRepoViewHolder>(HomeDiffUtil()) {
+    ListAdapter<Repositories, GitRepoViewHolder>(HomeDiffUtil()) {
     var createHolderCount = 0
     var bindHolderCount = 0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GitRepoViewHolder {
